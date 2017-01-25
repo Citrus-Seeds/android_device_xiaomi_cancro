@@ -114,16 +114,24 @@
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessButtonBacklightValues">
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
-        <item>0</item>
+        <item>5</item>    <!-- 0-1 -->
+        <item>8</item>    <!-- 1-5 -->
+        <item>10</item>   <!-- 5-10 -->
+        <item>12</item>   <!-- 10-15 -->
+        <item>17</item>   <!-- 15-25 -->
+        <item>29</item>   <!-- 25-50 -->
+        <item>35</item>   <!-- 50-100 -->
+        <item>47</item>   <!-- 100-200 -->
+        <item>75</item>   <!-- 200-300 -->
+	<item>95</item>	  <!-- 300-400 -->
+        <item>114</item>  <!-- 400-500 -->
+        <item>130</item>  <!-- 500-750 -->
+        <item>152</item>  <!-- 750-1000 -->
+        <item>175</item>  <!-- 1000-2000 -->
+	<item>200</item>  <!-- 2000-3000 -->
+	<item>215</item>  <!-- 3000-5000 -->
+	<item>235</item>  <!-- 5000-10000 -->
+	<item>255</item>  <!-- 10000+-->
     </integer-array>
 
     <!-- Minimum screen brightness setting allowed by the power manager.
@@ -133,6 +141,7 @@
     <bool name="config_deviceHasVariableButtonBrightness">true</bool>
 
     <!-- MMS user agent string -->
+
     <string name="config_mms_user_agent" translatable="false">Android-Mms/2.0</string>
 
     <!-- MMS user agent prolfile url -->
