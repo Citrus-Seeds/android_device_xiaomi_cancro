@@ -1,0 +1,5 @@
+#============= untrusted_app ==============
+allow untrusted_app dolby_prop:property_service set;
+allow untrusted_app init:unix_stream_socket connectto;
+allow untrusted_app property_socket:sock_file write;
+allow untrusted_app sysfs:file { read getattr open };

@@ -9,3 +9,5 @@ allow qti_init_shell system_data_file:dir relabelfrom;
 allow qti_init_shell sysfs_battery_supply:dir search;
 allow qti_init_shell sysfs_battery_supply:file { getattr setattr };
 allow qti_init_shell sysfs_devices_system_cpu:file setattr;
+allow qti_init_shell default_prop:property_service set;
+allow qti_init_shell sysfs_wake_lock:file { getattr setattr };
