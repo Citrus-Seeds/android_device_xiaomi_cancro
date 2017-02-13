@@ -73,10 +73,10 @@ case "$target" in
                 echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
                 echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
                 echo "19000 1400000:39000 1700000:19000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-                echo 99 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+                echo 95 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
                 echo 1497600 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
                 echo 1497600 > /sys/devices/system/cpu/cpufreq/interactive/input_boost_freq
-                echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+                echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
                 echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
                 echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
@@ -88,6 +88,7 @@ case "$target" in
 		echo '1' > /sys/kernel/fast_charge/force_fast_charge
 		echo '260' > /sys/devices/platform/kcal_ctrl.0/kcal_sat
 		echo 'Y' > /sys/module/adreno_idler/parameters/adreno_idler_active
+		echo '0' > /sys/kernel/intelli_plug/intelli_plug_active
                 setprop ro.qualcomm.perf.cores_online 1
             ;;
             *)
