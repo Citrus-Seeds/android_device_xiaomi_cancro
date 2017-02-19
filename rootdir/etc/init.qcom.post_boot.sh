@@ -88,7 +88,6 @@ case "$target" in
 		echo '1' > /sys/kernel/fast_charge/force_fast_charge
 		echo '260' > /sys/devices/platform/kcal_ctrl.0/kcal_sat
 		echo 'Y' > /sys/module/adreno_idler/parameters/adreno_idler_active
-		echo '0' > /sys/kernel/intelli_plug/intelli_plug_active
                 setprop ro.qualcomm.perf.cores_online 1
             ;;
             *)
