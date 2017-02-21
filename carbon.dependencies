@@ -1,0 +1,14 @@
+[
+ {
+   "repository":  "travarilo/android_kernel_xiaomi_cancro",
+   "target_path": "kernel/xiaomi/cancro",
+   "revision":      "nougat",
+   "remote":      "gh"
+ },
+ {
+   "repository":  "DirtyUnicorns/android_hardware_qcom_msm8x74",
+   "target_path": "hardware/qcom/msm8x74",
+   "revision":      "n",
+   "remote":      "gh"
+ }
+]
