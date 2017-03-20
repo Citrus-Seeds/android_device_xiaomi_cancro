@@ -68,23 +68,43 @@ case "$target" in
                 do
                     echo "cpubw_hwmon" > $devfreq_gov
                 done
-                echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-                echo "interactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-                echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-                echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
-                echo "20000 1400000:40000 1700000:20000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-                echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-                echo 1190400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-                echo 1497600 > /sys/devices/system/cpu/cpufreq/interactive/input_boost_freq
-                echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-                echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
-                echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
+                echo "alucard" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+                echo "alucard" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+                echo "alucard" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+                echo "alucard" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/cpus_down_rate
+                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/cpus_up_rate
+                echo 70 > /sys/devices/system/cpu/cpufreq/alucard/dec_cpu_load
+                echo 60 > /sys/devices/system/cpu/cpufreq/alucard/dec_cpu_load_at_min_freq
+                echo 1094400 > /sys/devices/system/cpu/cpufreq/alucard/freq_responsiveness
+                echo 70 > /sys/devices/system/cpu/cpufreq/alucard/inc_cpu_load
+                echo 60 > /sys/devices/system/cpu/cpufreq/alucard/inc_cpu_load_at_min_freq
+                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_1
+                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_2
+                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_3
+                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_4
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_at_min_freq_1
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_at_min_freq_2
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_at_min_freq_3
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_at_min_freq_4
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_1
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_2
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_3
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_4
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_at_min_freq_1
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_at_min_freq_2
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_at_min_freq_3
+                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_at_min_freq_4
+                echo 50000 > /sys/devices/system/cpu/cpufreq/alucard/sampling_rate
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
                 echo 1728000 > /sys/module/cpu_boost/parameters/sync_threshold
-                echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+                echo '0' > /sys/module/cpu_boost/parameters/input_boost_enable
                 echo '1' > /sys/kernel/fast_charge/force_fast_charge
                 setprop ro.qualcomm.perf.cores_online 2
+		# Fuck the YOTA
+		# Use kernel feature
+		su -c iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
             ;;
             *)
                 echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
