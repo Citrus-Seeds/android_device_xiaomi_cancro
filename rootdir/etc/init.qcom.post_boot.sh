@@ -68,34 +68,25 @@ case "$target" in
                 do
                     echo "cpubw_hwmon" > $devfreq_gov
                 done
-                echo "alucard" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-                echo "alucard" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-                echo "alucard" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-                echo "alucard" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/cpus_down_rate
-                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/cpus_up_rate
-                echo 70 > /sys/devices/system/cpu/cpufreq/alucard/dec_cpu_load
-                echo 60 > /sys/devices/system/cpu/cpufreq/alucard/dec_cpu_load_at_min_freq
-                echo 1094400 > /sys/devices/system/cpu/cpufreq/alucard/freq_responsiveness
-                echo 70 > /sys/devices/system/cpu/cpufreq/alucard/inc_cpu_load
-                echo 60 > /sys/devices/system/cpu/cpufreq/alucard/inc_cpu_load_at_min_freq
-                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_1
-                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_2
-                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_3
-                echo 1 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_4
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_at_min_freq_1
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_at_min_freq_2
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_at_min_freq_3
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_dec_step_at_min_freq_4
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_1
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_2
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_3
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_4
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_at_min_freq_1
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_at_min_freq_2
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_at_min_freq_3
-                echo 2 > /sys/devices/system/cpu/cpufreq/alucard/pump_inc_step_at_min_freq_4
-                echo 50000 > /sys/devices/system/cpu/cpufreq/alucard/sampling_rate
+                echo "elementalx" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+                echo "elementalx" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+                echo "elementalx" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+                echo "elementalx" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+                echo 3 > /sys/devices/system/cpu/cpufreq/elementalx/down_differential
+                echo 1 > /sys/devices/system/cpu/cpufreq/elementalx/gboost
+                echo 0 > /sys/devices/system/cpu/cpufreq/elementalx/ignore_nice_load
+                echo "1574400,0,0,0" > /sys/devices/system/cpu/cpufreq/elementalx/input_event_min_freq
+                echo 800 > /sys/devices/system/cpu/cpufreq/elementalx/input_event_timeout
+                echo 268800 > /sys/devices/system/cpu/cpufreq/elementalx/optimal_freq
+                echo 1 > /sys/devices/system/cpu/cpufreq/elementalx/sampling_down_factor
+                echo 15000 > /sys/devices/system/cpu/cpufreq/elementalx/sampling_rate
+                echo 10000 > /sys/devices/system/cpu/cpufreq/elementalx/sampling_rate_min
+                echo 268800 > /sys/devices/system/cpu/cpufreq/elementalx/sync_freq
+                echo "1728000,1728000,1728000,1728000" > /sys/devices/system/cpu/cpufreq/elementalx/two_phase_freq
+                echo 15000 > /sys/devices/system/cpu/cpufreq/elementalx/ui_sampling_rate
+                echo 90 > /sys/devices/system/cpu/cpufreq/elementalx/up_threshold
+                echo 90 > /sys/devices/system/cpu/cpufreq/elementalx/up_threshold_any_cpu_load
+                echo 90 > /sys/devices/system/cpu/cpufreq/elementalx/up_threshold_multi_core
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
                 echo 1728000 > /sys/module/cpu_boost/parameters/sync_threshold
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
