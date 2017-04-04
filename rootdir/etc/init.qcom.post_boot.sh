@@ -68,34 +68,23 @@ case "$target" in
                 do
                     echo "cpubw_hwmon" > $devfreq_gov
                 done
-                echo "elementalx" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-                echo "elementalx" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-                echo "elementalx" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
-                echo "elementalx" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
-                echo 3 > /sys/devices/system/cpu/cpufreq/elementalx/down_differential
-                echo 1 > /sys/devices/system/cpu/cpufreq/elementalx/gboost
-                echo 0 > /sys/devices/system/cpu/cpufreq/elementalx/ignore_nice_load
-                echo "1574400,0,0,0" > /sys/devices/system/cpu/cpufreq/elementalx/input_event_min_freq
-                echo 800 > /sys/devices/system/cpu/cpufreq/elementalx/input_event_timeout
-                echo 268800 > /sys/devices/system/cpu/cpufreq/elementalx/optimal_freq
-                echo 1 > /sys/devices/system/cpu/cpufreq/elementalx/sampling_down_factor
-                echo 15000 > /sys/devices/system/cpu/cpufreq/elementalx/sampling_rate
-                echo 10000 > /sys/devices/system/cpu/cpufreq/elementalx/sampling_rate_min
-                echo 268800 > /sys/devices/system/cpu/cpufreq/elementalx/sync_freq
-                echo "1728000,1728000,1728000,1728000" > /sys/devices/system/cpu/cpufreq/elementalx/two_phase_freq
-                echo 15000 > /sys/devices/system/cpu/cpufreq/elementalx/ui_sampling_rate
-                echo 90 > /sys/devices/system/cpu/cpufreq/elementalx/up_threshold
-                echo 90 > /sys/devices/system/cpu/cpufreq/elementalx/up_threshold_any_cpu_load
-                echo 90 > /sys/devices/system/cpu/cpufreq/elementalx/up_threshold_multi_core
+                echo "interactive" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+                echo "interactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+                echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+                echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+                echo "20000 1400000:40000 1700000:20000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+                echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+                echo 1190400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+                echo 1497600 > /sys/devices/system/cpu/cpufreq/interactive/input_boost_freq
+                echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+                echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
+                echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
                 echo 1728000 > /sys/module/cpu_boost/parameters/sync_threshold
+                echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
-                echo '0' > /sys/module/cpu_boost/parameters/input_boost_enable
                 echo '1' > /sys/kernel/fast_charge/force_fast_charge
                 setprop ro.qualcomm.perf.cores_online 2
-		# Fuck the YOTA
-		# Use kernel feature
-		su -c iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
             ;;
             *)
                 echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
