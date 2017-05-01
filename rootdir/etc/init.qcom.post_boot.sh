@@ -27,6 +27,13 @@
 #
 
 target=`getprop ro.board.platform`
+case "$target" in
+    "msm7201a_ffa" | "msm7201a_surf" | "msm7627_ffa" | "msm7627_6x" | "msm7627a"  | "msm7627_surf" | \
+    "qsd8250_surf" | "qsd8250_ffa" | "msm7630_surf" | "msm7630_1x" | "msm7630_fusion" | "qsd8650a_st1x")
+        echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        echo 90 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+        ;;
+esac
 
 case "$target" in
     "msm8974")
@@ -72,19 +79,17 @@ case "$target" in
                 echo "interactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
                 echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
                 echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
-                echo "20000 1400000:40000 1700000:20000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+                echo "19000 1400000:39000 1700000:19000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
                 echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-                echo 1190400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+                echo 1497600 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
                 echo 1497600 > /sys/devices/system/cpu/cpufreq/interactive/input_boost_freq
-                echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
+                echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
                 echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
                 echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
                 echo 1728000 > /sys/module/cpu_boost/parameters/sync_threshold
                 echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
-                echo '1' > /sys/kernel/fast_charge/force_fast_charge
-                setprop ro.qualcomm.perf.cores_online 2
             ;;
             *)
                 echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
@@ -104,10 +109,6 @@ case "$target" in
                 echo 80 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load
             ;;
         esac
-        echo 300000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-        echo 300000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
-        echo 300000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
-        echo 300000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq        
         echo 1 > /sys/kernel/msm_thermal/enabled
         chown -h root.system /sys/devices/system/cpu/mfreq
         chmod -h 220 /sys/devices/system/cpu/mfreq
@@ -122,8 +123,6 @@ case "$target" in
         chmod -h 664 /sys/devices/system/cpu/sched_mc_power_savings
         chown system.system /sys/class/devfreq/qcom,cpubw*/governor
         chmod -h 664 /sys/class/devfreq/qcom,cpubw*/governor
-        chown system.system /sys/module/workqueue/parameters/power_efficient
- 	chmod -h 644 /sys/module/workqueue/parameters/power_efficient
         chown system.system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
         chown system.system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
         chown system.system /sys/devices/system/cpu/cpu0/cpufreq/sys_cap_freq
@@ -140,6 +139,10 @@ case "$target" in
         chown system.system /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq
         chown system.system /sys/devices/system/cpu/cpu3/cpufreq/sys_cap_freq
         chown system.system /sys/devices/system/cpu/cpu3/cpufreq/thermal_cap_freq
+        echo 2457600 > /sys/devices/system/cpu/cpu0/cpufreq/sys_cap_freq
+        echo 2457600 > /sys/devices/system/cpu/cpu1/cpufreq/sys_cap_freq
+        echo 2457600 > /sys/devices/system/cpu/cpu2/cpufreq/sys_cap_freq
+        echo 2457600 > /sys/devices/system/cpu/cpu3/cpufreq/sys_cap_freq
         echo 2 > /sys/devices/system/cpu/sched_mc_power_savings
         chown system.system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
         chown system.system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
@@ -153,8 +156,8 @@ case "$target" in
         chmod -h 0660 /sys/power/wake_lock
         chmod -h 0660 /sys/power/wake_unlock
         chown radio.system /sys/power/wake_lock
-        chown radio.system /sys/power/wake_unlock        
-        echo 1 > /dev/cpuctl/apps/cpu.notify_on_migrate
+        chown radio.system /sys/power/wake_unlock
+        echo 0 > /dev/cpuctl/apps/cpu.notify_on_migrate
         start mpdecision
         setprop sys.perf.profile `getprop sys.perf.profile`
     ;;
@@ -172,14 +175,41 @@ esac
 
 # Post-setup services
 case "$target" in
+    "msm8660" | "msm8960" | "msm8226" | "msm8610")
+        start mpdecision
+    ;;
     "msm8974")
-        rm /data/system/perfd/default_values
         echo 512 > /sys/block/mmcblk0/bdi/read_ahead_kb
+    ;;
+    "apq8084")
+        rm /data/system/default_values
+        start mpdecision
+        echo 512 > /sys/block/mmcblk0/bdi/read_ahead_kb
+        echo 512 > /sys/block/sda/bdi/read_ahead_kb
+        echo 512 > /sys/block/sdb/bdi/read_ahead_kb
+        echo 512 > /sys/block/sdc/bdi/read_ahead_kb
+        echo 512 > /sys/block/sdd/bdi/read_ahead_kb
+        echo 512 > /sys/block/sde/bdi/read_ahead_kb
+        echo 512 > /sys/block/sdf/bdi/read_ahead_kb
+        echo 512 > /sys/block/sdg/bdi/read_ahead_kb
+        echo 512 > /sys/block/sdh/bdi/read_ahead_kb
+    ;;
+    "msm7627a")
+        if [ -f /sys/devices/soc0/soc_id ]; then
+            soc_id=`cat /sys/devices/soc0/soc_id`
+        else
+            soc_id=`cat /sys/devices/system/soc/soc0/id`
+        fi
+        case "$soc_id" in
+            "127" | "128" | "129")
+                start mpdecision
+        ;;
+        esac
     ;;
 esac
 
 case "$target" in
-    "msm8974")
+    "msm8226" | "msm8974" | "msm8610" | "apq8084" | "mpq8092" | "msm8610")
         # Let kernel know our image version/variant/crm_version
         image_version="10:"
         image_version+=`getprop ro.build.id`
