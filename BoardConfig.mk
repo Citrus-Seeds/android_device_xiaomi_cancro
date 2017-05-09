@@ -54,8 +54,8 @@ BOARD_MKBOOTIMG_ARGS               := --ramdisk_offset 0x02000000 --tags_offset 
 TARGET_KERNEL_SOURCE               := kernel/xiaomi/cancro
 TARGET_KERNEL_ARCH                 := arm
 TARGET_KERNEL_CONFIG               := lineageos_cancro_defconfig
-KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-eabi-6.x/bin
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-eabi-
+KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-6.x/bin
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-androideabi-
 BOARD_DTBTOOL_ARGS                 := -2
 
 # Kernel headers
@@ -90,7 +90,6 @@ AUDIO_FEATURE_ENABLED_USBAUDIO := true
 AUDIO_FEATURE_ENABLED_SPKR_PROTECTION := true
 AUDIO_FEATURE_DYNAMIC_MIXER_PATHS := true
 TARGET_USES_QCOM_MM_AUDIO := true
-USE_CUSTOM_AUDIO_POLICY := 1
 
 # FM Radio
 BOARD_HAVE_QCOM_FM := true

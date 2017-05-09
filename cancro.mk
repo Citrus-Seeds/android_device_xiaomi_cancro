@@ -175,6 +175,7 @@ PRODUCT_PACKAGES += \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
+    libbthost_if \
     tinymix
 
 # Filesystem management tools
