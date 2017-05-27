@@ -51,7 +51,7 @@ case "$target" in
         echo 1 > /sys/module/msm_pm/modes/cpu1/retention/idle_enabled
         echo 1 > /sys/module/msm_pm/modes/cpu2/retention/idle_enabled
         echo 1 > /sys/module/msm_pm/modes/cpu3/retention/idle_enabled
-        echo 1 > /sys/kernel/msm_thermal/enabled
+        echo Y > /sys/module/msm_thermal/parameters/enabled
         echo Y > /sys/module/clock_krait_8974/parameters/boost
         stop mpdecision
         echo 1 > /sys/devices/system/cpu/cpu1/online
@@ -83,6 +83,7 @@ case "$target" in
                 echo 1728000 > /sys/module/cpu_boost/parameters/sync_threshold
                 echo 100000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+                echo 0 > /sys/module/cpu_boost/parameters/input_boost_freq
                 echo '1' > /sys/kernel/fast_charge/force_fast_charge
                 setprop ro.qualcomm.perf.cores_online 2
             ;;
@@ -104,11 +105,11 @@ case "$target" in
                 echo 80 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load
             ;;
         esac
-        echo 300000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-        echo 300000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
-        echo 300000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
-        echo 300000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq        
-        echo 1 > /sys/kernel/msm_thermal/enabled
+        echo 268800 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        echo 268800 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+        echo 268800 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
+        echo 268800 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq        
+        echo Y > /sys/module/msm_thermal/parameters/enabled
         chown -h root.system /sys/devices/system/cpu/mfreq
         chmod -h 220 /sys/devices/system/cpu/mfreq
         chown -h root.system /sys/devices/system/cpu/cpu1/online
