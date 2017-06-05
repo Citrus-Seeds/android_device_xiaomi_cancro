@@ -17,6 +17,8 @@ DEVICE_PROVISIONED=1
 mmp.enable.3g2=true
 mm.enable.smoothstreaming=true
 
+ro.build.fingerprint=Xiaomi/aosp_cancro/cancro:7.1.2/NHG47L/bb37d61dcc:userdebug/release-keys
+ro.product.device=cancro
 ro.ril.enable.amr.wideband=1
 ro.telephony.default_network=10
 
