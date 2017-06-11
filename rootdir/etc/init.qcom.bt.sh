@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2009-2013, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2016, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -146,42 +146,12 @@ config_bt ()
 
   #Enable Bluetooth Profiles specific to target Dynamically
   case $target in
-    "msm8960")
-       if [ "$btsoc" != "ath3k" ] && [ "$soc_hwid" != "130" ]
-       then
-           setprop ro.bluetooth.hfp.ver 1.6
-           setprop ro.qualcomm.bt.hci_transport smd
-       fi
-       ;;
-    "msm8974" | "msm8226" | "msm8610" | "msm8916" | "msm8909" | "msm8952" | "msm8937" | "msm8953" )
+    "msm8974" )
        if [ "$btsoc" != "ath3k" ]
        then
            setprop ro.bluetooth.hfp.ver 1.7
            setprop ro.qualcomm.bt.hci_transport smd
        fi
-       ;;
-    "apq8084" | "mpq8092" | "msm8994" | "msm8992" )
-       if [ "$btsoc" != "rome" ]
-       then
-           setprop ro.qualcomm.bt.hci_transport smd
-       elif [ "$btsoc" = "rome" ]
-       then
-           setprop ro.bluetooth.hfp.ver 1.6
-       fi
-       ;;
-    "msm8996" )
-       if [ "$btsoc" != "rome" ]
-       then
-           setprop ro.qualcomm.bt.hci_transport smd
-       elif [ "$btsoc" = "rome" ]
-       then
-           setprop ro.bluetooth.hfp.ver 1.7
-       fi
-       ;;
-    "msmcobalt")
-       setprop ro.bluetooth.hfp.ver 1.6
-       ;;
-    *)
        ;;
   esac
 
@@ -350,3 +320,4 @@ case $TRANSPORT in
 esac
 
 exit 0
+
