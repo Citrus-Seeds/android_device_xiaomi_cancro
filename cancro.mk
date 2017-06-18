@@ -41,7 +41,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     camera.msm8974 \
     libxml2 \
-    Snap
+    Camera2
+
+# KernelAdiutorMod
+PRODUCT_PACKAGES += \
+    KernelAdiutorMod
 
 # DRM
 PRODUCT_PACKAGES += \
