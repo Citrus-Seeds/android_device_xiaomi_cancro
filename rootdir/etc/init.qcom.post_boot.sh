@@ -51,7 +51,7 @@ case "$target" in
         echo 1 > /sys/module/msm_pm/modes/cpu1/retention/idle_enabled
         echo 1 > /sys/module/msm_pm/modes/cpu2/retention/idle_enabled
         echo 1 > /sys/module/msm_pm/modes/cpu3/retention/idle_enabled
-        echo 1 > /sys/module/msm_thermal/core_control/enabled
+        echo 1 > /sys/kernel/msm_thermal/enabled
         echo Y > /sys/module/clock_krait_8974/parameters/boost
         stop mpdecision
         echo 1 > /sys/devices/system/cpu/cpu1/online
@@ -72,13 +72,12 @@ case "$target" in
                 echo "interactive" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
                 echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
                 echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
-                echo "19000 1400000:35000 1800000:19000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
+                echo "20000 1400000:40000 1700000:20000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
                 echo 95 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
                 echo 1190400 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
                 echo 1 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
-                echo "50 1300000:60 1500000:70 1800000:80 2000000:90" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
-                echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-                echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+                echo "85 1500000:90 1800000:70" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
+                echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
                 echo 0 > /sys/module/cpu_boost/parameters/sync_threshold
                 echo 99000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
@@ -86,9 +85,105 @@ case "$target" in
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
                 echo 1 > /sys/kernel/fast_charge/force_fast_charge
                 setprop ro.qualcomm.perf.cores_online 2
-                # Fuck the YOTA
+		# Fuck the YOTA
                 # Use kernel feature
                 su -c iptables -t mangle -A POSTROUTING -j TTL --ttl-set 64
+
+				# Stripalov TCP fix for cancro. All rights reserved © 2016
+				busybox sysctl -w net.ipv4.tcp_timestamps=0
+				busybox sysctl -w net.ipv4.tcp_tw_reuse=1
+				busybox sysctl -w net.ipv4.tcp_sack=1
+				busybox sysctl -w net.ipv4.tcp_tw_recycle=1
+				busybox sysctl -w net.ipv4.tcp_window_scaling=1
+				busybox sysctl -w net.ipv4.tcp_keepalive_probes=5
+				busybox sysctl -w net.ipv4.tcp_keepalive_intvl=30
+				busybox sysctl -w net.ipv4.tcp_fin_timeout=30
+				busybox sysctl -w net.core.wmem_max=404480
+				busybox sysctl -w net.core.rmem_max=404480
+				busybox sysctl -w net.core.rmem_default=256960
+				busybox sysctl -w net.core.wmem_default=256960
+				busybox sysctl -w net.ipv4.tcp_wmem=4096,16384,404480
+				busybox sysctl -w net.ipv4.tcp_rmem=4096,87380,404480
+				busybox sysctl -w net.ipv4.conf.all.rp_filter=2
+				busybox sysctl -w net.ipv4.conf.default.rp_filter=2
+				busybox sysctl -w net.ipv4.tcp_max_syn_backlog=1024
+				busybox sysctl -w net.ipv4.tcp_synack_retries=2
+				busybox sysctl -w net.ipv4.tcp_moderate_rcvbuf=1
+				busybox sysctl -w net.ipv4.icmp_echo_ignore_all=1
+				busybox sysctl -w net.ipv4.icmp_echo_ignore_broadcasts=1
+				busybox sysctl -w net.ipv4.icmp_ignore_bogus_error_responses=1
+				busybox sysctl -w net.ipv4.tcp_fin_timeout=15
+				busybox sysctl -w net.ipv4.route.flush=1
+				busybox sysctl -w net.ipv4.tcp_rfc1337=1
+				busybox sysctl -w net.ipv4.ip_no_pmtu_disc=0
+				busybox sysctl -w net.ipv4.tcp_ecn=0
+				busybox sysctl -w net.ipv4.tcp_fack=1
+				busybox sysctl -w net.ipv4.tcp_syn_retries=2
+				busybox sysctl -w net.ipv4.ip_forward=0
+				busybox sysctl -w net.ipv4.conf.all.accept_redirects=0
+				busybox sysctl -w net.ipv4.conf.all.secure_redirects=0
+				busybox sysctl -w net.ipv4.conf.all.send_redirects=0
+				busybox sysctl -w net.ipv4.conf.default.send_redirects=0
+				busybox sysctl -w net.ipv4.conf.default.accept_source_route=0
+				busybox sysctl -w net.ipv4.tcp_dsack=1
+				busybox sysctl -w net.ipv4.tcp_no_metrics_save=1
+				busybox sysctl -w net.core.netdev_max_backlog=30000
+				busybox sysctl -w net.ipv4.tcp_fastopen=1
+				busybox sysctl -w net.ipv4.tcp_slow_start_after_idle=0
+
+				# Stripalov VM tweaks for cancro. All rights reserved © 2016
+				busybox sysctl -w vm.oom_dump_tasks=0
+				busybox sysctl -w vm.oom_kill_allocating_task=0
+				busybox sysctl -w vm.vfs_cache_pressure=200
+				busybox sysctl -w vm.overcommit_memory=1
+				busybox sysctl -w vm.overcommit_ratio=150
+				busybox sysctl -w vm.dirty_expire_centisecs=500
+				busybox sysctl -w vm.dirty_writeback_centisecs=3000
+				busybox sysctl -w vm.block_dump=0
+				busybox sysctl -w vm.laptop_mode=0
+				busybox sysctl -w vm.min_free_kbytes=2691
+				busybox sysctl -w vm.min_free_order_shift=4
+				busybox sysctl -w vm.page-cluster=2
+				busybox sysctl -w vm.dirty_background_ratio=10
+				busybox sysctl -w vm.dirty_ratio=20
+				busybox sysctl -w vm.swappiness=100
+				busybox sysctl -w vm.panic_on_oom=0
+				# Stripalov killer for cancro. All rights reserved © 2016 2017
+				# Force stop Google Sync
+				am force-stop com.google.android.syncadapters.contacts
+				# Force stop Google App
+				am force-stop com.google.android.googlequicksearchbox
+				# Force stop Play Market
+				am force-stop com.android.vending
+				# Force stop Google Play Services
+				am force-stop com.google.android.gms
+				# Force stop Google Services Framework
+				am force-stop com.google.process.gapps
+				# Force stop Google Partner Setup
+				am force-stop com.google.android.partnersetup
+				# Force stop GBoard
+				am force-stop com.google.android.inputmethod.latin
+				# Force stop Settings
+				am force-stop com.android.settings
+				
+				# Stripalov OOM fix for cancro. All rights reserved © 2016 2017
+				# Fix Google Sync
+				echo 15 > /proc/`busybox pidof com.google.android.syncadapters.contacts`/oom_adj
+				# Fix Google App
+				echo 15 > /proc/`busybox pidof com.google.android.googlequicksearchbox:interactor`/oom_adj | echo 15 > /proc/`busybox pidof com.google.android.googlequicksearchbox:search`/oom_adj
+				# Fix Play Market
+				echo 15 > /proc/`busybox pidof com.android.vending`/oom_adj
+				# Fix Google Play Services
+				echo 15 > /proc/`busybox pidof com.google.android.gms`/oom_adj | echo 15 > /proc/`busybox pidof com.google.android.gms.persistent`/oom_adj
+				# Fix Google Services Framework
+				echo 15 > /proc/`busybox pidof com.google.process.gapps`/oom_adj
+				# Fix Google Partner Setup
+				echo 15 > /proc/`busybox pidof com.google.android.partnersetup`/oom_adj
+				# Fix GBoard
+				echo 15 > /proc/`busybox pidof com.google.android.inputmethod.latin`/oom_adj
+				# Fix Settings
+				echo 15 > /proc/`busybox pidof com.android.settings`/oom_adj
+
             ;;
             *)
                 echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
@@ -108,7 +203,13 @@ case "$target" in
                 echo 80 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold_any_cpu_load
             ;;
         esac
-        echo 1 > /sys/module/msm_thermal/core_control/enabled
+        echo 268800 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        echo 268800 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+        echo 268800 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
+        echo 268800 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq
+        chown -h system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+        chown -h system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+        echo 1 > /sys/kernel/msm_thermal/enabled
         chown -h root.system /sys/devices/system/cpu/mfreq
         chmod -h 220 /sys/devices/system/cpu/mfreq
         chown -h root.system /sys/devices/system/cpu/cpu1/online
@@ -117,48 +218,17 @@ case "$target" in
         chmod -h 664 /sys/devices/system/cpu/cpu1/online
         chmod -h 664 /sys/devices/system/cpu/cpu2/online
         chmod -h 664 /sys/devices/system/cpu/cpu3/online
-        chown system.system /sys/devices/system/cpu/nrcpus
-        chmod -h 664 /sys/devices/system/cpu/nrcpus
         chmod -h 664 /sys/devices/system/cpu/sched_mc_power_savings
-        chown system.system /sys/class/devfreq/qcom,cpubw*/governor
-        chmod -h 664 /sys/class/devfreq/qcom,cpubw*/governor
-        chown system.system /sys/module/workqueue/parameters/power_efficient
-        chmod -h 644 /sys/module/workqueue/parameters/power_efficient
-        chown system.system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-        chown system.system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-        chown system.system /sys/devices/system/cpu/cpu0/cpufreq/sys_cap_freq
-        chown system.system /sys/devices/system/cpu/cpu0/cpufreq/thermal_cap_freq
-        chown system.system /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-        chown system.system /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
-        chown system.system /sys/devices/system/cpu/cpu1/cpufreq/sys_cap_freq
-        chown system.system /sys/devices/system/cpu/cpu1/cpufreq/thermal_cap_freq
-        chown system.system /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
-        chown system.system /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
-        chown system.system /sys/devices/system/cpu/cpu2/cpufreq/sys_cap_freq
-        chown system.system /sys/devices/system/cpu/cpu2/cpufreq/thermal_cap_freq
-        chown system.system /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
-        chown system.system /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq
-        chown system.system /sys/devices/system/cpu/cpu3/cpufreq/sys_cap_freq
-        chown system.system /sys/devices/system/cpu/cpu3/cpufreq/thermal_cap_freq
         echo 0 > /sys/devices/system/cpu/sched_mc_power_savings
-        chown system.system /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-        chown system.system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
-        chown system.system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
-        chown system.system /sys/devices/system/cpu/cpufreq/interactive/target_loads
-        chown system.system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
-        chown system.system /sys/module/cpu_boost/parameters/boost_ms
-        chown system.system /sys/module/cpu_boost/parameters/sync_threshold
-        chown system.system /sys/module/cpu_boost/parameters/input_boost_freq
-        chown system.system /sys/module/cpu_boost/parameters/input_boost_ms
-        chmod -h 0660 /sys/power/wake_lock
-        chmod -h 0660 /sys/power/wake_unlock
-        chown radio.system /sys/power/wake_lock
-        chown radio.system /sys/power/wake_unlock
-        echo 0 > /dev/cpuctl/apps/cpu.notify_on_migrate
-        start mpdecision
-        setprop sys.perf.profile `getprop sys.perf.profile`
-
+        echo 1 > /dev/cpuctl/apps/cpu.notify_on_migrate
     ;;
+esac
+
+case "$target" in
+    "msm8974")
+         rm /data/system/perfd/default_values
+         echo 896 > /sys/block/mmcblk0/bdi/read_ahead_kb
+	;;
 esac
 
 case "$target" in
@@ -197,7 +267,6 @@ esac
 case "$target" in
     "msm8974")
         start mpdecision
-        rm /data/system/perfd/default_values
         echo 896 > /sys/block/mmcblk0/bdi/read_ahead_kb
     ;;
 esac
