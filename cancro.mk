@@ -43,10 +43,6 @@ PRODUCT_PACKAGES += \
     libxml2 \
     Camera2
 
-# KernelAdiutorMod
-PRODUCT_PACKAGES += \
-    KernelAdiutorMod
-
 # DRM
 PRODUCT_PACKAGES += \
     libshims_wvm
