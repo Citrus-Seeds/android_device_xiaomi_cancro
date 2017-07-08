@@ -171,6 +171,9 @@ BOARD_HARDWARE_CLASS += \
     hardware/cyanogen/cmhw \
     $(CANCRO_PATH)/cmhw
 
+# Real Battery Charging Current
+BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
+
 # No old RPC for prop
 TARGET_NO_RPC := true
 
