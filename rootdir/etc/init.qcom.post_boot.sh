@@ -221,7 +221,7 @@ case "$target" in
         chmod -h 664 /sys/devices/system/cpu/cpu2/online
         chmod -h 664 /sys/devices/system/cpu/cpu3/online
         chmod -h 664 /sys/devices/system/cpu/sched_mc_power_savings
-        echo 0 > /sys/devices/system/cpu/sched_mc_power_savings
+        echo 2 > /sys/devices/system/cpu/sched_mc_power_savings
         echo 1 > /dev/cpuctl/apps/cpu.notify_on_migrate
     ;;
 esac
