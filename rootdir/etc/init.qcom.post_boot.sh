@@ -268,7 +268,6 @@ esac
 # Post-setup services
 case "$target" in
     "msm8974")
-        start mpdecision
         echo 896 > /sys/block/mmcblk0/bdi/read_ahead_kb
     ;;
 esac
