@@ -133,23 +133,6 @@ case "$target" in
 				busybox sysctl -w net.ipv4.tcp_fastopen=1
 				busybox sysctl -w net.ipv4.tcp_slow_start_after_idle=0
 
-				# Stripalov VM tweaks for cancro. All rights reserved © 2016
-				busybox sysctl -w vm.oom_dump_tasks=0
-				busybox sysctl -w vm.oom_kill_allocating_task=0
-				busybox sysctl -w vm.vfs_cache_pressure=200
-				busybox sysctl -w vm.overcommit_memory=1
-				busybox sysctl -w vm.overcommit_ratio=150
-				busybox sysctl -w vm.dirty_expire_centisecs=500
-				busybox sysctl -w vm.dirty_writeback_centisecs=3000
-				busybox sysctl -w vm.block_dump=0
-				busybox sysctl -w vm.laptop_mode=0
-				busybox sysctl -w vm.min_free_kbytes=2691
-				busybox sysctl -w vm.min_free_order_shift=4
-				busybox sysctl -w vm.page-cluster=2
-				busybox sysctl -w vm.dirty_background_ratio=10
-				busybox sysctl -w vm.dirty_ratio=20
-				busybox sysctl -w vm.swappiness=100
-				busybox sysctl -w vm.panic_on_oom=0
 				# Stripalov killer for cancro. All rights reserved © 2016 2017
 				# Force stop Google Sync
 				am force-stop com.google.android.syncadapters.contacts
