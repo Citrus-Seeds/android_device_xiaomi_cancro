@@ -45,6 +45,9 @@ TARGET_CPU_VARIANT  := krait
 BOARD_GLOBAL_CFLAGS   += -D__ARM_USE_PLD -D__ARM_CACHE_LINE_SIZE=64 -DUSE_RIL_VERSION_10
 BOARD_GLOBAL_CPPFLAGS += -DUSE_RIL_VERSION_10
 
+# Use Snapdragon LLVM Compiler if available
+TARGET_USE_SDCLANG := true
+
 # Kernel
 BOARD_KERNEL_CMDLINE               := console=none vmalloc=340M androidboot.hardware=qcom msm_rtb.filter=0x3b7 ehci-hcd.park=3 androidboot.bootdevice=msm_sdcc.1
 BOARD_KERNEL_SEPARATED_DT          := true
