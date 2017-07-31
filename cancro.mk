@@ -43,9 +43,9 @@ PRODUCT_PACKAGES += \
     libxml2 \
     OpenCamera
 
-# DRM
+# Widevine
 PRODUCT_PACKAGES += \
-    libshims_wvm
+    libwvm_shim
 
 # Charger
 PRODUCT_PACKAGES += \
