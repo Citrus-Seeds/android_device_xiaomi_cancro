@@ -73,17 +73,18 @@ case "$target" in
                 echo "interactive" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
                 echo "interactive" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
                 echo "20000 729600:60000 1036800:150000" > /sys/devices/system/cpu/cpufreq/interactive/above_hispeed_delay
-                echo 99 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+                echo 90 > /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
                 echo 1036800 > /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+                echo 960000 > /sys/devices/system/cpu/cpufreq/interactive/boost
                 echo 0 > /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
                 echo "98 422400:40 729600:80 1036800:90" > /sys/devices/system/cpu/cpufreq/interactive/target_loads
                 echo 40000 > /sys/devices/system/cpu/cpufreq/interactive/min_sample_time
 		echo 30000 > /sys/devices/system/cpu/cpufreq/interactive/timer_rate
 		echo 80000 > /sys/devices/system/cpu/cpufreq/interactive/timer_slack
                 echo 20 > /sys/module/cpu_boost/parameters/boost_ms
-                echo 0 > /sys/module/cpu_boost/parameters/sync_threshold
+                echo 1497600 > /sys/module/cpu_boost/parameters/sync_threshold
                 echo 99000 > /sys/devices/system/cpu/cpufreq/interactive/sampling_down_factor
-                echo 0 > /sys/module/cpu_boost/parameters/input_boost_freq
+                echo 1036800 > /sys/module/cpu_boost/parameters/input_boost_freq
                 echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
                 echo 1 > /sys/kernel/fast_charge/force_fast_charge
                 setprop ro.qualcomm.perf.cores_online 2
