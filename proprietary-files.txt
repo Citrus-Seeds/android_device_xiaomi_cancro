@@ -523,6 +523,7 @@ bin/wcnss_filter
 bin/wcnss_service
 bin/xtwifi-client
 bin/xtwifi-inet-agent
+bin/readmac|d3d3c6fdf9edccaf0b0c1d8fe9638a796899f3d6
 etc/firmware/cpp_firmware_v1_1_1.fw
 etc/firmware/cpp_firmware_v1_1_6.fw
 etc/firmware/cpp_firmware_v1_2_0.fw

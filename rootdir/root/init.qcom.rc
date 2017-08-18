@@ -39,6 +39,11 @@ on init
     mkdir /storage/udisk 000 system system
     export LD_SHIM_LIBS /system/vendor/lib/libwvm.so|libwvm_shim.so
 
+    chown system system /persist/mac.bd.bin
+    chown system system /persist/mac.wlan.bin
+    chmod 0660 /persist/mac.bd.bin
+    chmod 0660 /persist/mac.wlan.bin
+
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864
@@ -890,3 +895,9 @@ service sensorservice /system/bin/sensorservice
     user root
     group root
     disabled
+
+service readmac /system/bin/readmac
+    class main
+    user root
+    group root system radio qcom_diag
+    oneshot
