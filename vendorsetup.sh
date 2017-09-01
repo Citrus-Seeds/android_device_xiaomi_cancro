@@ -1,1 +1,1 @@
-add_lunch_combo deso_cancro-userdebug
+add_lunch_combo citrus_cancro-userdebug
